@@ -12,6 +12,13 @@ django_filter = "*"
 django-cors-headers = "*"
 psycopg2 = "*"
 configparser = "*"
+django-cors-headers = "*"
+asgiref = "*"
+pytz = "*"
+requests = "*"
+six = "*"
+sqlparse = "*"
+urllib3 = "*"
 
 pytelegrambotapi = "*"
 
