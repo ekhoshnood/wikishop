@@ -18,8 +18,8 @@ requests = "*"
 six = "*"
 sqlparse = "*"
 urllib3 = "*"
-
 pytelegrambotapi = "*"
+gunicorn = "*"
 
 [dev-packages]
 

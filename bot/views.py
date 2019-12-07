@@ -7,7 +7,7 @@ import json
 # Create your views here.
 import telebot
 
-#bot = telebot.TeleBot('994604539:AAGsEMWEDW93la7rQ5c0JYv62sHiVTu5X1g')
+bot = telebot.TeleBot('994604539:AAGsEMWEDW93la7rQ5c0JYv62sHiVTu5X1g')
 
 class UpdateBot(APIView):
     def post(self, request):
@@ -37,7 +37,7 @@ class ButtonText(APIView):
         except:
             return Response({"code": 401})
 
-'''
+
 @bot.message_handler(commands=['start'])
 def start(message):
     bot.send_message(message.chat.id, 'Salom')
@@ -49,4 +49,3 @@ def start(message):
 @bot.message_handler(content_types='text')
 def send_Message(message):
     bot.send_message(message.chat.id, 'Hayrli kun')
-'''
