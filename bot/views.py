@@ -2,10 +2,10 @@ from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .models import User, Button, Text
+import requests
 import json
-
-# Create your views here.
 import telebot
+from telebot.types import ReplyKeyboardMarkup, KeyboardButton
 
 bot = telebot.TeleBot('994604539:AAGsEMWEDW93la7rQ5c0JYv62sHiVTu5X1g')
 
@@ -40,7 +40,7 @@ class ButtonText(APIView):
 
 @bot.message_handler(commands=['start'])
 def start(message):
-    bot.send_message(message.chat.id, 'Salom')
+    bot.send_message(message.chat.id, 'سلام {}'.format(message.from_user.first_name))
     user = User()
     user.user_id = message.chat.id
     user.save()
@@ -48,4 +48,69 @@ def start(message):
 
 @bot.message_handler(content_types='text')
 def send_Message(message):
-    bot.send_message(message.chat.id, 'Hayrli kun')
+    bot.send_message(message.chat.id, 'روی /هی کلیک کنید')
+    hei = 0
+    if hei==0:
+        bot.send_message(message.chat.id, 'شر شر بارون، توی خیابون \n')
+        bot.send_message(message.chat.id, 'روی /هی کلیک کنید')
+        hei=+1
+    if hei==1:
+        bot.send_message(message.chat.id, 'دختره گولم زد، دست به دولم زد \n')
+        bot.send_message(message.chat.id, 'روی /هی کلیک کنید')
+        hei=+1
+    if hei==2:
+        bot.send_message(message.chat.id, 'دولم بزرگ شد، کردم تو کونش \n')
+        bot.send_message(message.chat.id, 'روی /هی کلیک کنید')
+        hei=+1
+    if hei==3:
+        bot.send_message(message.chat.id, 'کونش خون اومد، بردم به دکتر \n')
+        bot.send_message(message.chat.id, 'روی /هی کلیک کنید')
+        hei=+1
+    if hei==4:
+        bot.send_message(message.chat.id, 'دکتر دواش داد، آب انار داد \n')
+        bot.send_message(message.chat.id, 'روی /هی کلیک کنید')
+        hei=+1
+    if hei==5:
+        bot.send_message(message.chat.id, 'امروز خورد، فردا مرد \n')
+        bot.send_message(message.chat.id, 'روی /هی کلیک کنید')
+        hei=+1
+    if hei==6:
+        bot.send_message(message.chat.id, 'مرد دیگه، میخاستی چی بشه؟ \n')
+        bot.send_message(message.chat.id, 'روی /هی کلیک کنید')
+        hei=+1
+
+
+
+'''
+
+
+def Button(message):
+    r = requests.get('http://127.0.0.1:8000/api/button')
+    data = json.loads(r.text)
+    text = 'salam aleikom {}'.format(message.from_user.first_name)
+    key = ReplyKeyboardMarkup(True, False)
+
+    for i in range(len(data['list'])):
+        button = KeyboardButton(data['list'][i]['name'])
+        key.add(button)
+    bot.send_message(message.from_user.id, text, reply_markup=key)
+
+
+@bot.message_handler(commands=['start'])
+def start(message):
+    bot.send_message(message.chat.id, 'سلام {}'.format(message.from_user.first_name))
+    Button(message)
+
+@bot.message_handler(content_types='text')
+def send_message(message):
+    link = 'http://127.0.0.1:8000/api/text'
+    text = {"text":message.text}
+    r = requests.post(link, data=json.dumps(text))
+    data = json.loads(r.text)
+
+    if data['code'] == 401:
+        bot.send_message(message.from_user.id, 'sorry {} some tokhmi takhayoli problem'.format(message.from_user.first_name))
+    else:
+        wiki = data['text']
+        bot.send_message(message.from_user.id, wiki)
+'''

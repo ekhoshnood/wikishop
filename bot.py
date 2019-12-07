@@ -1,3 +1,4 @@
+'''
 import telebot
 import requests
 import json
@@ -37,3 +38,4 @@ def send_message(message):
 
 
 bot.polling()
+'''
