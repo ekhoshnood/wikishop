@@ -47,37 +47,23 @@ def start(message):
 
 @bot.message_handler(commands=['هی'])
 def hei(message):
-    bot.send_message(message.chat.id, 'روی /هی کلیک کنید')
+    bot.send_message(message.chat.id, 'با هر ردیف کلمه /بعدی را تایپ کنید')
     hei = 0
     if hei==0:
         bot.send_message(message.chat.id, 'شر شر بارون، توی خیابون \n')
-        bot.send_message(message.chat.id, 'روی /هی کلیک کنید')
-        hei=+1
     if hei==1:
         bot.send_message(message.chat.id, 'دختره گولم زد، دست به دولم زد \n')
-        bot.send_message(message.chat.id, 'روی /هی کلیک کنید')
-        hei=+1
     if hei==2:
         bot.send_message(message.chat.id, 'دولم بزرگ شد، کردم تو کونش \n')
-        bot.send_message(message.chat.id, 'روی /هی کلیک کنید')
-        hei=+1
     if hei==3:
         bot.send_message(message.chat.id, 'کونش خون اومد، بردم به دکتر \n')
-        bot.send_message(message.chat.id, 'روی /هی کلیک کنید')
-        hei=+1
     if hei==4:
         bot.send_message(message.chat.id, 'دکتر دواش داد، آب انار داد \n')
-        bot.send_message(message.chat.id, 'روی /هی کلیک کنید')
-        hei=+1
     if hei==5:
         bot.send_message(message.chat.id, 'امروز خورد، فردا مرد \n')
-        bot.send_message(message.chat.id, 'روی /هی کلیک کنید')
-        hei=+1
     if hei==6:
         bot.send_message(message.chat.id, 'مرد دیگه، میخاستی چی بشه؟ \n')
-        bot.send_message(message.chat.id, 'روی /هی کلیک کنید')
-        hei=+1
-
+    hei+=1
 
 @bot.message_handler(content_types='text')
 def send_Message(message):
