@@ -20,6 +20,7 @@ sqlparse = "*"
 urllib3 = "*"
 pytelegrambotapi = "*"
 gunicorn = "*"
+dj-database-url = "*"
 
 [dev-packages]
 
