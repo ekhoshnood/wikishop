@@ -68,6 +68,21 @@ def hei(message):
 @bot.message_handler(content_types='text')
 def send_Message(message):
     bot.send_message(message.chat.id, 'روی هی/ کلیک کنید')
+    if message==0:
+        bot.send_message(message.chat.id, 'شر شر بارون، توی خیابون \n')
+        bot.send_message(message.chat.id, '/1')
+    if message==1:
+        bot.send_message(message.chat.id, 'دختره گولم زد، دست به دولم زد \n')
+    if message==2:
+        bot.send_message(message.chat.id, 'دولم بزرگ شد، کردم تو کونش \n')
+    if message==3:
+        bot.send_message(message.chat.id, 'کونش خون اومد، بردم به دکتر \n')
+    if message==4:
+        bot.send_message(message.chat.id, 'دکتر دواش داد، آب انار داد \n')
+    if message==5:
+        bot.send_message(message.chat.id, 'امروز خورد، فردا مرد \n')
+    if message==6:
+        bot.send_message(message.chat.id, 'مرد دیگه، میخاستی چی بشه؟ \n')
 
 
 
