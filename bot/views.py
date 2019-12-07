@@ -45,9 +45,8 @@ def start(message):
     user.user_id = message.chat.id
     user.save()
 
-
-@bot.message_handler(content_types='text')
-def send_Message(message):
+@bot.message_handler(commands=['هی'])
+def hei(message):
     bot.send_message(message.chat.id, 'روی /هی کلیک کنید')
     hei = 0
     if hei==0:
@@ -78,6 +77,12 @@ def send_Message(message):
         bot.send_message(message.chat.id, 'مرد دیگه، میخاستی چی بشه؟ \n')
         bot.send_message(message.chat.id, 'روی /هی کلیک کنید')
         hei=+1
+
+
+@bot.message_handler(content_types='text')
+def send_Message(message):
+    bot.send_message(message.chat.id, 'روی هی/ کلیک کنید')
+
 
 
 
