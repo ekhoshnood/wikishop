@@ -83,6 +83,9 @@ DATABASES = {
     }
 }
 
+# this is to change database to heroku
+# 1. heroku addons:create heroku-postgresql:hobby-dev
+#2. pipenv install dj_database_url
 import dj_database_url
 
 db_from_env = dj_database_url.config()
