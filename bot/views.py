@@ -37,7 +37,7 @@ class ButtonText(APIView):
         except:
             return Response({"code": 401})
 
-
+'''
 @bot.message_handler(commands=['start'])
 def start(message):
     bot.send_message(message.chat.id, 'سلام {}'.format(message.from_user.first_name))
@@ -84,16 +84,13 @@ def send_Message(message):
     if message==6:
         bot.send_message(message.chat.id, 'مرد دیگه، میخاستی چی بشه؟ \n')
 
-
-
-
 '''
 
 
 def Button(message):
     r = requests.get('http://127.0.0.1:8000/api/button')
     data = json.loads(r.text)
-    text = 'salam aleikom {}'.format(message.from_user.first_name)
+    text = 'سلام {}'.format(message.from_user.first_name)
     key = ReplyKeyboardMarkup(True, False)
 
     for i in range(len(data['list'])):
@@ -104,7 +101,6 @@ def Button(message):
 
 @bot.message_handler(commands=['start'])
 def start(message):
-    bot.send_message(message.chat.id, 'سلام {}'.format(message.from_user.first_name))
     Button(message)
 
 @bot.message_handler(content_types='text')
@@ -119,4 +115,5 @@ def send_message(message):
     else:
         wiki = data['text']
         bot.send_message(message.from_user.id, wiki)
-'''
+
+bot.polling()
