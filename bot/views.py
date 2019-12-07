@@ -88,7 +88,7 @@ def send_Message(message):
 
 
 def Button(message):
-    r = requests.get('http://127.0.0.1:8000/api/button')
+    r = requests.get('https://wikishop.herokuapp.com/api/button')
     data = json.loads(r.text)
     text = 'سلام {}'.format(message.from_user.first_name)
     key = ReplyKeyboardMarkup(True, False)
@@ -105,7 +105,7 @@ def start(message):
 
 @bot.message_handler(content_types='text')
 def send_message(message):
-    link = 'http://127.0.0.1:8000/api/text'
+    link = 'https://wikishop.herokuapp.com/api/text'
     text = {"text":message.text}
     r = requests.post(link, data=json.dumps(text))
     data = json.loads(r.text)
