@@ -77,7 +77,7 @@ def send_message(message):
 
 @bot.message_handler(commands=['start'])
 def start(message):
-    bot.send_message(message.chat.id, 'سلام {}'.format(message.from_user.first_name))
+    bot.send_message(message.chat.id, 'hi {}'.format(message.from_user.first_name))
     user = User()
     user.user_id = message.chat.id
     user.save()
