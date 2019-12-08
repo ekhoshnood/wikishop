@@ -83,9 +83,7 @@ def start(message):
     user.save()
     data = {'list': []}
     button = Button.objects.all()
-    for i in button:
-        button_name = data['list'].append({'name': i.button})
-        bot.send_message(message.chat.id, button_name)
+    bot.send_message(message.chat.id, button)
 
 
 @bot.message_handler(commands=['هی'])
