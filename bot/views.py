@@ -84,7 +84,8 @@ def start(message):
     print("before button_list")
     button_list = Button.objects.all()
     print("after button list")
-    bot.send_message(message.chat.id, button_list)
+    for button in button_list:
+        bot.send_message(message.chat.id, button_list)
 
 
 @bot.message_handler(commands=['هی'])
