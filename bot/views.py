@@ -39,7 +39,7 @@ class ButtonText(APIView):
             return Response({"code": 401})
 
 
-def Button(message):
+def button_def(message):
     r = requests.get('https://wikishop.herokuapp.com/api/button')
     data = json.loads(r.text)
     text = 'سلام {}'.format(message.from_user.first_name)
@@ -54,7 +54,7 @@ def Button(message):
 '''
 @bot.message_handler(commands=['start'])
 def start(message):
-    Button(message)
+    button_def(message)
 
 @bot.message_handler(content_types='text')
 def send_message(message):
@@ -81,9 +81,10 @@ def start(message):
     user = User()
     user.user_id = message.chat.id
     user.save()
-    # data = {'list': []}
-    # button = Button.objects.all()
-    bot.send_message(message.chat.id, 'hi {}'.format(message.from_user.first_name))
+    print("before button_list")
+    button_list = Button.objects.all()
+    print("after button list")
+    bot.send_message(message.chat.id, button_list)
 
 
 @bot.message_handler(commands=['هی'])
