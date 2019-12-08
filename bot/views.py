@@ -83,7 +83,7 @@ def start(message):
     user.save()
     data = {'list': []}
     button = Button.objects.all()
-    bot.send_message(message.chat.id, button)
+    bot.send_message(message.chat.id, 'hi')
 
 
 @bot.message_handler(commands=['هی'])
