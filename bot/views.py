@@ -71,16 +71,23 @@ def hei(message):
 @bot.message_handler(content_types='text')
 def send_Message(message):
     buttons_text = Text.objects.all()
-    link = 'https://wikishop.herokuapp.com//api/text'
+    print("after buttons text")
+    link = 'https://wikishop.herokuapp.com/api/text'
+    print("after link")
     text = {"text": message.text}
+    print("before r")
     r = requests.post(link, data=json.dumps(text))
     data = json.loads(r.text)
 
+    print("before if data")
     if data['code'] == 401:
+        print("if 401")
         bot.send_message(message.from_user.id,
                          'sorry {} some tokhmi takhayoli problem'.format(message.from_user.first_name))
     else:
+        print("if wiki")
         wiki = data['text']
+        print(data['text'])
         bot.send_message(message.from_user.id, wiki)
 
 
