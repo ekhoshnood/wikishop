@@ -1,3 +1,4 @@
+import telegram
 from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -40,15 +41,39 @@ class ButtonText(APIView):
 
 
 def button_def(message):
-    r = requests.get('https://wikishop.herokuapp.com/api/button')
-    data = json.loads(r.text)
+    # r = requests.get('https://wikishop.herokuapp.com/api/button')
+    # data = json.loads(r.text)
+    button_list = Button.objects.all()
     text = 'سلام {}'.format(message.from_user.first_name)
     key = ReplyKeyboardMarkup(True, False)
 
-    for i in range(len(data['list'])):
-        button = KeyboardButton(data['list'][i]['name'])
-        key.add(button)
+    # for i in range(len(data['list'])):
+    #     button = KeyboardButton(data['list'][i]['name'])
+    #     key.add(button)
+    for i in range(button_list):
+        # bot.send_message(message.chat.id, button)
+        bot.send_message(message.chat.id, 'before key')
+        key_button = KeyboardButton(b)
+        # bot.send_message(message.chat.id, 'middle key')
+        key.add(key_button)
+        bot.send_message(message.chat.id, 'after key')
     bot.send_message(message.from_user.id, text, reply_markup=key)
+
+
+def build_menu(buttons,
+               n_cols,
+               header_buttons=None,
+               footer_buttons=None):
+    print("build_menu started")
+    menu = [buttons[i:i + n_cols] for i in range(0, len(buttons), n_cols)]
+    print("after menu")
+    if header_buttons:
+        menu.insert(0, [header_buttons])
+    print("before if footer")
+    if footer_buttons:
+        menu.append([footer_buttons])
+    print("before return")
+    return menu
 
 
 '''
@@ -86,6 +111,14 @@ def start(message):
     print("after button list")
     for button in button_list:
         bot.send_message(message.chat.id, button)
+    # button_def(message)
+    # build_menu(button_list, 1)
+    custom_keyboard = [['top-left', 'top-right'],
+                       ['bottom-left', 'bottom-right']]
+    reply_markup = telegram.ReplyKeyboardMarkup(custom_keyboard)
+    bot.send_message(chat_id=message.chat_id,
+                     text="Custom Keyboard Test",
+                     reply_markup=reply_markup)
 
 
     text = 'سلام {}'.format(message.from_user.first_name)
