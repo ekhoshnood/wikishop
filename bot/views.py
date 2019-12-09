@@ -40,14 +40,20 @@ class ButtonText(APIView):
 
 
 def button_def(message):
-    r = requests.get('https://wikishop.herokuapp.com/api/button')
-    data = json.loads(r.text)
+    # r = requests.get('https://wikishop.herokuapp.com/api/button')
+    # data = json.loads(r.text)
+    button_list = Button.objects.all()
     text = 'سلام {}'.format(message.from_user.first_name)
     key = ReplyKeyboardMarkup(True, False)
 
-    for i in range(len(data['list'])):
-        button = KeyboardButton(data['list'][i]['name'])
+    # for i in range(len(data['list'])):
+    #     button = KeyboardButton(data['list'][i]['name'])
+    #     key.add(button)
+    for button in button_list:
+        # bot.send_message(message.chat.id, button)
+        bot.send_message(message.chat.id, 'before key')
         key.add(button)
+        bot.send_message(message.chat.id, 'after key')
     bot.send_message(message.from_user.id, text, reply_markup=key)
 
 
@@ -86,6 +92,8 @@ def start(message):
     print("after button list")
     for button in button_list:
         bot.send_message(message.chat.id, button)
+    button_def(message)
+
 
 
 @bot.message_handler(commands=['هی'])
