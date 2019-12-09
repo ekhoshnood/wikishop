@@ -107,18 +107,21 @@ def start(message):
     user.save()
     print("before button_list")
     button_list = Button.objects.all()
-    print("after button list")
-    # for button in button_list:
-    #     bot.send_message(message.chat.id, button)
-    # button_def(message)
-    # build_menu(button_list, 1)
+
+    data = {'list': []}
+    print("before for data append")
+    for i in button_list:
+        print(i)
+        data['list'].append({'name': i.button})
 
     text = 'سلام {}'.format(message.from_user.first_name)
     key = ReplyKeyboardMarkup(True, False)
-    bot.send_message(message.chat.id, "before for i")
-    for i in range(len(button_list)):
-        button = KeyboardButton(button_list[i])
+    print("before for key")
+    for i in range(len(data['list'])):
+        print("in last for")
+        button = KeyboardButton(data['list'][i]['name'])
         key.add(button)
+    print("before last do")
     bot.send_message(message.from_user.id, text, reply_markup=key)
 
 
