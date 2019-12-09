@@ -25,6 +25,7 @@ class GetList(APIView):
         button = Button.objects.all()
         for i in button:
             data['list'].append({'name': i.button})
+
         return Response(data)
 
 
@@ -35,6 +36,7 @@ class ButtonText(APIView):
             get_button = Button.objects.get(button=data['text'])
             text = Text.objects.get(button=get_button)
             return Response({"text": text.text, "code": 200})
+
         except:
             return Response({"code": 401})
 
@@ -43,11 +45,11 @@ def button_def(message):
     user = User()
     user.user_id = message.chat.id
     user.save()
+
     text = 'سلام {}'.format(message.from_user.first_name)
 
     data = {'list': []}
     button_list = Button.objects.all()
-
     for i in button_list:
         data['list'].append({'name': i.button})
 
@@ -55,6 +57,7 @@ def button_def(message):
     for i in range(len(data['list'])):
         button = KeyboardButton(data['list'][i]['name'])
         key.add(button)
+
     bot.send_message(message.from_user.id, text, reply_markup=key)
 
 
@@ -70,26 +73,17 @@ def hei(message):
 
 @bot.message_handler(content_types='text')
 def send_Message(message):
-    buttons_text = Text.objects.all()
-    print("after buttons text")
     link = 'https://wikishop.herokuapp.com/api/text'
-    print("after link")
     text = {"text": message.text}
-    print("before r")
     r = requests.post(link, data=json.dumps(text))
     data = json.loads(r.text)
 
-    print("before if data")
     if data['code'] == 401:
-        print("if 401")
         bot.send_message(message.from_user.id,
                          'sorry {} some tokhmi takhayoli problem'.format(message.from_user.first_name))
     else:
-        print("if wiki")
         wiki = data['text']
-        print(data['text'])
         bot.send_message(message.from_user.id, wiki)
-
 
 
 '''
