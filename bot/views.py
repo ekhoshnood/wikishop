@@ -1,3 +1,4 @@
+import telegram
 from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -115,7 +116,7 @@ def start(message):
     custom_keyboard = [['top-left', 'top-right'],
                        ['bottom-left', 'bottom-right']]
     reply_markup = telegram.ReplyKeyboardMarkup(custom_keyboard)
-    bot.send_message(chat_id=chat_id,
+    bot.send_message(chat_id=message.chat_id,
                      text="Custom Keyboard Test",
                      reply_markup=reply_markup)
 
