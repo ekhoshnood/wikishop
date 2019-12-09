@@ -111,7 +111,13 @@ def start(message):
     for button in button_list:
         bot.send_message(message.chat.id, button)
     # button_def(message)
-    build_menu(button_list, 1)
+    # build_menu(button_list, 1)
+    custom_keyboard = [['top-left', 'top-right'],
+                       ['bottom-left', 'bottom-right']]
+    reply_markup = telegram.ReplyKeyboardMarkup(custom_keyboard)
+    bot.send_message(chat_id=chat_id,
+                     text="Custom Keyboard Test",
+                     reply_markup=reply_markup)
 
 
 @bot.message_handler(commands=['هی'])
