@@ -52,7 +52,9 @@ def button_def(message):
     for button in button_list:
         # bot.send_message(message.chat.id, button)
         bot.send_message(message.chat.id, 'before key')
-        key.add(button)
+        key_button = KeyboardButton(button)
+        bot.send_message(message.chat.id, 'middle key')
+        key.add(key_button)
         bot.send_message(message.chat.id, 'after key')
     bot.send_message(message.from_user.id, text, reply_markup=key)
 
