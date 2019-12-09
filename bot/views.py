@@ -49,14 +49,30 @@ def button_def(message):
     # for i in range(len(data['list'])):
     #     button = KeyboardButton(data['list'][i]['name'])
     #     key.add(button)
-    for button in button_list:
+    for i in range(button_list):
         # bot.send_message(message.chat.id, button)
         bot.send_message(message.chat.id, 'before key')
-        key_button = KeyboardButton(button)
-        bot.send_message(message.chat.id, 'middle key')
+        key_button = KeyboardButton(b)
+        # bot.send_message(message.chat.id, 'middle key')
         key.add(key_button)
         bot.send_message(message.chat.id, 'after key')
     bot.send_message(message.from_user.id, text, reply_markup=key)
+
+
+def build_menu(buttons,
+               n_cols,
+               header_buttons=None,
+               footer_buttons=None):
+    print("build_menu started")
+    menu = [buttons[i:i + n_cols] for i in range(0, len(buttons), n_cols)]
+    print("after menu")
+    if header_buttons:
+        menu.insert(0, [header_buttons])
+    print("before if footer")
+    if footer_buttons:
+        menu.append([footer_buttons])
+    print("before return")
+    return menu
 
 
 '''
@@ -94,8 +110,8 @@ def start(message):
     print("after button list")
     for button in button_list:
         bot.send_message(message.chat.id, button)
-    button_def(message)
-
+    # button_def(message)
+    build_menu(button_list, 1)
 
 
 @bot.message_handler(commands=['هی'])
