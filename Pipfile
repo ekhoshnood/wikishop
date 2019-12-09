@@ -21,7 +21,6 @@ urllib3 = "*"
 pytelegrambotapi = "*"
 gunicorn = "*"
 dj-database-url = "*"
-python-telegram-bot = "*"
 
 [dev-packages]
 

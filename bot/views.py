@@ -1,4 +1,3 @@
-import telegram
 from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -59,7 +58,7 @@ def button_def(message):
         bot.send_message(message.chat.id, 'after key')
     bot.send_message(message.from_user.id, text, reply_markup=key)
 
-
+'''
 def build_menu(buttons,
                n_cols,
                header_buttons=None,
@@ -74,7 +73,7 @@ def build_menu(buttons,
         menu.append([footer_buttons])
     print("before return")
     return menu
-
+'''
 
 '''
 @bot.message_handler(commands=['start'])
@@ -109,21 +108,14 @@ def start(message):
     print("before button_list")
     button_list = Button.objects.all()
     print("after button list")
-    for button in button_list:
-        bot.send_message(message.chat.id, button)
+    # for button in button_list:
+    #     bot.send_message(message.chat.id, button)
     # button_def(message)
     # build_menu(button_list, 1)
-    custom_keyboard = [['top-left', 'top-right'],
-                       ['bottom-left', 'bottom-right']]
-    reply_markup = telegram.ReplyKeyboardMarkup(custom_keyboard)
-    bot.send_message(chat_id=message.chat_id,
-                     text="Custom Keyboard Test",
-                     reply_markup=reply_markup)
-
 
     text = 'سلام {}'.format(message.from_user.first_name)
     key = ReplyKeyboardMarkup(True, False)
-
+    bot.send_message(message.chat.id, "before for i")
     for i in range(len(button_list)):
         button = KeyboardButton(button_list[i])
         key.add(button)
