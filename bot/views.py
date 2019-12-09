@@ -88,6 +88,15 @@ def start(message):
         bot.send_message(message.chat.id, button)
 
 
+    text = 'سلام {}'.format(message.from_user.first_name)
+    key = ReplyKeyboardMarkup(True, False)
+
+    for i in range(len(button_list)):
+        button = KeyboardButton(button_list[i])
+        key.add(button)
+    bot.send_message(message.from_user.id, text, reply_markup=key)
+
+
 @bot.message_handler(commands=['هی'])
 def hei(message):
     bot.send_message(message.chat.id, 'با هر ردیف کلمه /بعدی را تایپ کنید')
