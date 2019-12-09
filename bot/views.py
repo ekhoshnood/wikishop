@@ -40,23 +40,50 @@ class ButtonText(APIView):
 
 
 def button_def(message):
-    # r = requests.get('https://wikishop.herokuapp.com/api/button')
-    # data = json.loads(r.text)
-    button_list = Button.objects.all()
+    user = User()
+    user.user_id = message.chat.id
+    user.save()
     text = 'سلام {}'.format(message.from_user.first_name)
-    key = ReplyKeyboardMarkup(True, False)
 
-    # for i in range(len(data['list'])):
-    #     button = KeyboardButton(data['list'][i]['name'])
-    #     key.add(button)
-    for i in range(button_list):
-        # bot.send_message(message.chat.id, button)
-        bot.send_message(message.chat.id, 'before key')
-        key_button = KeyboardButton(b)
-        # bot.send_message(message.chat.id, 'middle key')
-        key.add(key_button)
-        bot.send_message(message.chat.id, 'after key')
+    data = {'list': []}
+    button_list = Button.objects.all()
+
+    for i in button_list:
+        data['list'].append({'name': i.button})
+
+    key = ReplyKeyboardMarkup(True, False)
+    for i in range(len(data['list'])):
+        button = KeyboardButton(data['list'][i]['name'])
+        key.add(button)
     bot.send_message(message.from_user.id, text, reply_markup=key)
+
+
+@bot.message_handler(commands=['start'])
+def start(message):
+    button_def(message)
+
+
+@bot.message_handler(commands=['هی'])
+def hei(message):
+    bot.send_message(message.chat.id, 'با هر ردیف کلمه /بعدی را تایپ کنید')
+
+
+@bot.message_handler(content_types='text')
+def send_Message(message):
+    buttons_text = Text.objects.all()
+    link = 'https://wikishop.herokuapp.com//api/text'
+    text = {"text": message.text}
+    r = requests.post(link, data=json.dumps(text))
+    data = json.loads(r.text)
+
+    if data['code'] == 401:
+        bot.send_message(message.from_user.id,
+                         'sorry {} some tokhmi takhayoli problem'.format(message.from_user.first_name))
+    else:
+        wiki = data['text']
+        bot.send_message(message.from_user.id, wiki)
+
+
 
 '''
 def build_menu(buttons,
@@ -74,62 +101,3 @@ def build_menu(buttons,
     print("before return")
     return menu
 '''
-
-'''
-@bot.message_handler(commands=['start'])
-def start(message):
-    button_def(message)
-
-@bot.message_handler(content_types='text')
-def send_message(message):
-    link = 'https://wikishop.herokuapp.com/api/text'
-    text = {"text":message.text}
-    r = requests.post(link, data=json.dumps(text))
-    data = json.loads(r.text)
-
-    if data['code'] == 401:
-        bot.send_message(message.from_user.id, 'sorry {} some tokhmi takhayoli problem'.format(message.from_user.first_name))
-    else:
-        wiki = data['text']
-        bot.send_message(message.from_user.id, wiki)
-
-# bot.polling()
-
-
-'''
-
-
-@bot.message_handler(commands=['start'])
-def start(message):
-    bot.send_message(message.chat.id, 'hi {}'.format(message.from_user.first_name))
-    user = User()
-    user.user_id = message.chat.id
-    user.save()
-    print("before button_list")
-    button_list = Button.objects.all()
-
-    data = {'list': []}
-    print("before for data append")
-    for i in button_list:
-        print(i)
-        data['list'].append({'name': i.button})
-
-    text = 'سلام {}'.format(message.from_user.first_name)
-    key = ReplyKeyboardMarkup(True, False)
-    print("before for key")
-    for i in range(len(data['list'])):
-        print("in last for")
-        button = KeyboardButton(data['list'][i]['name'])
-        key.add(button)
-    print("before last do")
-    bot.send_message(message.from_user.id, text, reply_markup=key)
-
-
-@bot.message_handler(commands=['هی'])
-def hei(message):
-    bot.send_message(message.chat.id, 'با هر ردیف کلمه /بعدی را تایپ کنید')
-
-
-@bot.message_handler(content_types='text')
-def send_Message(message):
-    bot.send_message(message.chat.id, 'روی هی/ کلیک کنید')
